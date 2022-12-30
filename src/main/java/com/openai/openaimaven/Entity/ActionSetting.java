@@ -7,6 +7,7 @@ import lombok.ToString;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.Table;
+import java.util.List;
 import java.util.Map;
 
 @Data
@@ -23,7 +24,8 @@ public class ActionSetting extends BaseEntity{
     private Boolean stream;
     private Integer logprobs;
     private Boolean echo;
-    private String stop;
+    @ElementCollection
+    private List<String> stop;
     private Float presencePenalty;
     private Float frequencyPenalty;
     private Integer bestOf;

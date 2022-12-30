@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.*;
 
+import java.util.List;
 import java.util.Map;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
@@ -35,7 +36,7 @@ public class CompletionRequestDTO{
 
     private Boolean echo;
 
-    private String stop;
+    private List<String> stop;
 
     private Float presencePenalty;
 
