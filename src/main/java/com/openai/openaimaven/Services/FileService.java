@@ -43,7 +43,7 @@ public class FileService {
     }
 
     @SneakyThrows
-    public JSONObject uploadFineTuneFile(MultipartFile file, FileUploadDTO fileUploadDTO){
+    public JSONObject uploadFineTuneFile(MultipartFile file){
         fileValidator(file);
         ByteArrayResource byteArrayResource ;
         try {
@@ -63,11 +63,11 @@ public class FileService {
         body.add("file", byteArrayResource);
         String response = openAIRestTemplate.makeRequest("/files",body,null,HttpMethod.POST);
         JSONObject responseObject = ParserUtility.stringToJson(response);
-        saveFileInfo(responseObject,fileUploadDTO);
+        saveFileInfo(responseObject);
         return responseObject;
     }
 
-    private void saveFileInfo(JSONObject jsonObject,FileUploadDTO fileUploadDTO)
+    private void saveFileInfo(JSONObject jsonObject)
     {
         UploadedFiles uploadedFiles = new UploadedFiles();
         uploadedFiles.setFileId(jsonObject.get("id").toString());
@@ -77,12 +77,6 @@ public class FileService {
         uploadedFiles.setUploadedOnOpenAi(jsonObject.get("created_at").toString());
         uploadedFiles.setStatus(jsonObject.get("status").toString());
 
-        if(fileUploadDTO.getRemarks()!=null && !fileUploadDTO.getRemarks().isEmpty()) {
-            uploadedFiles.setRemarks(fileUploadDTO.getRemarks());
-        }
-        if(fileUploadDTO.getAdditionalInformation()!=null && !fileUploadDTO.getAdditionalInformation().isEmpty()) {
-            uploadedFiles.setAdditionalInformation(fileUploadDTO.getAdditionalInformation());
-        }
         uploadedFilesRepository.save(uploadedFiles);
     }
 

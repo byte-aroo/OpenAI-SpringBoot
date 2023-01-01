@@ -18,8 +18,8 @@ public class FileController extends ApiRestHandler{
     private FileService fileService;
 
     @RequestMapping(value = "/upload",method = RequestMethod.POST,consumes = {MediaType.MULTIPART_FORM_DATA_VALUE, MediaType.APPLICATION_JSON_VALUE})
-    public ResponseWrapper uploadFile(@RequestPart("file")MultipartFile file, @RequestBody FileUploadDTO fileUploadDTO) {
-        return ResponseWrapper.getSuccessResponse(Collections.singletonMap("File Uploaded", fileService.uploadFineTuneFile(file,fileUploadDTO)), "Details of Uploaded File");
+    public ResponseWrapper uploadFile(@RequestPart("file")MultipartFile file) {
+        return ResponseWrapper.getSuccessResponse(Collections.singletonMap("File Uploaded", fileService.uploadFineTuneFile(file)), "Details of Uploaded File");
     }
 
     @RequestMapping(value = "",method = RequestMethod.GET)
